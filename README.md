@@ -4,9 +4,7 @@ Tests mbed network stack compatibility
 # Running the tests
 
 1. Create a new mbed-os project: `mbed new empty-project`
-2. `cd empty-project`
-3. `cd mbed-os`
-4. `cd TESTS`
+2. `cd empty-project/mbed-os/TESTS`
 5. `git clone https://github.com/sarahmarshy/nsapi`
 6. Create a `json` file and copy into it the contents of [network.json](/network.json).
 7. Change the ["header-file"](/network.json#L5) value in your `json` file to match your `NetworkInterface` header file.
