@@ -3,16 +3,19 @@ Tests mbed network stack compatibility
 
 # Running the tests
 
-In an mbed-os project...
-
-1. `cd mbed-os`
-2. `mbed update latest`
-3. `cd TESTS`
-2. `git clone https://github.com/sarahmarshy/nsapi`
-3. Create a `json` file and copy into it the contents of [ethernet.json](https://github.com/sarahmarshy/nsapi/blob/master/ethernet.json).
-4. Change [this line](https://github.com/sarahmarshy/nsapi/blob/master/ethernet.json#L5) in your `json` file to match your `NetworkInterface` header file.
-5. Change [this line](https://github.com/sarahmarshy/nsapi/blob/master/ethernet.json#L8) in your `json` file to match how you construct your `NetworkInterface`.
-6. Change [this line](https://github.com/sarahmarshy/nsapi/blob/master/ethernet.json#L12) in your `json` file to match how you would use your `NetworkInterface` to connect to a network. You must leave the variable name as `net`.
-7. If your `NetworkInterface` driver is not part of the project, add it.
-8. Remove any `main.cpp` in the root of your project directory
-8. In the root of you project run: `mbed test -t [toolchain] -m [mcu] -n mbed-os-tests-nsapi-* --app-config path/to/your/json/file`
+1. Create a new mbed-os project: `mbed new empty-project`
+2. `cd empty-project`
+3. `cd mbed-os`
+4. `cd TESTS`
+5. `git clone https://github.com/sarahmarshy/nsapi`
+6. Create a `json` file and copy into it the contents of [network.json](/network.json).
+7. Change the ["header-file"](/network.json#L5) value in your `json` file to match your `NetworkInterface` header file.
+    * For example, `"\"ESP8266Interface.h\""`
+8. Change the ["object-construction"](/network.json#L8) value in your `json` file to match how you construct your `NetworkInterface`.
+    * For example, `"new ESP8266Interface(D1, D0)"`
+9. Change the ["connect-statement"](/network.json#L12) value in your `json` file to match how you would use your `NetworkInterface` to connect to a network. You must leave the variable name as `net`.
+    * For example, `"((ESP8266Interface *)net)->connect(\"SSID\", \"Password\", NSAPI_SECURITY_WPA_WPA2)"`
+10. If your `NetworkInterface` driver is not part of the project, add it.
+    * For example, `mbed import esp8266-driver`
+11. Remove any `main.cpp` in the root of your project directory
+12. In the root of your project run: `mbed test -t [toolchain] -m [mcu] -n mbed-os-tests-nsapi-* --app-config path/to/your/json/file`
